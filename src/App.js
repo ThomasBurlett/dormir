@@ -29,7 +29,7 @@ export default function App() {
   const [shouldShowTimePicker, setShouldShowTimePicker] = React.useState(false);
   const [timePickerValue, setTimePickerValue] = React.useState(null);
 
-  const handleSleepNowClick = () => {
+  const handleShowResultsClick = () => {
     setShouldShowTimePicker(false);
     setShouldShowResults(!shouldShowResults);
   };
@@ -37,6 +37,12 @@ export default function App() {
   const handleSleepAtCLick = () => {
     setShouldShowResults(false);
     setShouldShowTimePicker(!shouldShowTimePicker);
+  };
+
+  const handleSleepNowClick = () => {
+    setTimePickerValue(new Date());
+    setShouldShowTimePicker(false);
+    setShouldShowResults(!shouldShowResults);
   };
 
   return (
@@ -68,7 +74,7 @@ export default function App() {
                 />
               </div>
               <div css={style}>
-                <Button variant="contained" onClick={handleSleepNowClick}>Calculate!</Button>
+                <Button variant="contained" onClick={handleShowResultsClick}>Calculate!</Button>
               </div>
             </div>
           }
