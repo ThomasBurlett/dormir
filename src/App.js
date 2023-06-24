@@ -1,9 +1,12 @@
+/** @jsxImportSource @emotion/react */
+
 import * as React from 'react';
-import {Button, Container, ButtonGroup, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
-import {css} from '@emotion/react';
+import { Container } from '@mui/material';
 import SidebarMoon from './SidebarMoon.png'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { css } from '@emotion/react'
+import {ButtonGroup, Button} from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -11,83 +14,50 @@ const darkTheme = createTheme({
   },
 });
 
+const style = css`
+  text-align: center;
+`
+
 export default function App() {
-  const [hours, setHours] = React.useState('');
-  const [minutes, setMinutes] = React.useState('');
-  const [amPM, setAMPM] = React.useState('');
+  const [shouldShowResults, setShouldShowResults] = React.useState(false);
 
-  const handleChangeHours = (event) => {
-    setHours(event.target.value);
-  };
-
-  const handleChangeMinutes = (event) => {
-    setMinutes(event.target.value);
-  };
-
-  const handleChangeAMPM = (event) => {
-    setAMPM(event.target.value);
+  const handleSleepNowClick = () => {
+    setShouldShowResults(!shouldShowResults);
   };
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Container maxWidth="md" className={test}>
-          <img src={SidebarMoon} alt="Moon"/>
-          <h1>I want to <b>wake up</b> at ...</h1>
-          <div>
-      <FormControl sx={{ m: 1, minWidth: 150 }}>
-        <InputLabel id="demo-simple-select-helper-label">Select Hours</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={hours}
-          label="Select Hours"
-          onChange={handleChangeHours}
-          variant='standard'
-        >
-          <MenuItem value={1}>01</MenuItem>
-          <MenuItem value={2}>02</MenuItem>
-          <MenuItem value={3}>03</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m: 1, minWidth: 150 }}>
-      <InputLabel id="demo-simple-select-helper-label">Select Minutes</InputLabel>
-        <Select
-          value={minutes}
-          onChange={handleChangeMinutes}
-          displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-          variant='standard'
-        >
-           <MenuItem value={1}>01</MenuItem>
-          <MenuItem value={2}>02</MenuItem>
-          <MenuItem value={3}>03</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m: 1, minWidth: 150 }}>
-      <InputLabel id="demo-simple-select-helper-label">Select AM/PM</InputLabel>
-        <Select
-          value={amPM}
-          onChange={handleChangeAMPM}
-          displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-          variant='filled'
-        >
-           <MenuItem value="AM">AM</MenuItem>
-          <MenuItem value="PM">PM</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
-          <ButtonGroup variant="text" aria-label="Sleep Actions" fullWidth>
-            <Button onClick={() => alert("Go to sleep in a while")}>Calculate</Button>
-            <Button onClick={() => alert("Go to sleep now")}>Sleep now</Button>
-            <Button onClick={() => alert("Coming soon!")}>Check again</Button>
-          </ButtonGroup>  
+      <Container maxWidth="md">
+        <div css={style}>
+          <img src={SidebarMoon} alt="Moon" />
+          <h1>I want to...</h1>
+          <ButtonGroup variant="text" fullWidth>
+            <Button>Fall asleep at</Button>
+            <Button>Wake up at</Button>
+            <Button onClick={handleSleepNowClick}>Sleep now</Button>
+          </ButtonGroup>
+        </div>
+        { shouldShowResults &&
+          <div css={style}>
+            <h2>
+            If you head to bed right now, you should try to wake up at one of the following times:  
+            </h2>
+            <h3>
+              - 8:00AM for one cycle
+            </h3>
+            <h3>
+              - 8:00AM for one cycle
+            </h3>
+            <h3>
+              - 8:00AM for one cycle
+            </h3>
+            <p>
+            Please keep in mind that you should be falling asleep at these times.
+            </p>
+          </div>
+        }
       </Container>
     </ThemeProvider>
   );
 }
-
-const test = css`
-  color: #000000;
-`;
